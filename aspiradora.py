@@ -6,8 +6,8 @@ def generar_matriz(columnas,filas):
 
 def mostrar_info_matriz(matriz):
     num_elementos = np.size(matriz)
-    print(matriz)
-    print(matriz.sum() / float(num_elementos) * 100)
+    print('------------------\n', matriz,'\n------------------')
+    print('porcentaje de suciedad: ',matriz.sum() / float(num_elementos) * 100, '%')
 
 while True:
     aspiradora = {'cordenadas': [0,0], 'valor_actual': 0} #[[0,0], 0]
@@ -16,10 +16,11 @@ while True:
     matriz = generar_matriz(int(input("columnas: ")),int(input("filas: ")))
 
     dimenciones = np.shape(matriz)
+    aspiradora['valor_actual'] = matriz[0][0]
 
     mostrar_info_matriz(matriz)
 
-    if input("modificar (y/n): ") == 'y':
+    if input("-------\nmoverse (y/n): ") == 'y':
         if input("Todo en ceros (y/n): ") == 'y':
                 matriz = np.zeros(dimenciones)
 
@@ -34,6 +35,18 @@ while True:
                         aspiradora['cordenadas'][1] = aspiradora['cordenadas'][1] + lista_movimientos[movimiento][1]
                         aspiradora['valor_actual'] = matriz[aspiradora['cordenadas']]
                         print(aspiradora['cordenadas'])
+                    else:
+                        print("Fuera del rango!")
+            
+            if movimiento in lista_movimientos:
+                if lista_movimientos[movimiento][0] == 'fila':
+                    if aspiradora['cordenadas'][0] + lista_movimientos[movimiento][1] >= 0 and aspiradora['cordenadas'][0] + lista_movimientos[movimiento][1] < dimenciones[0]:
+                        matriz[aspiradora['cordenadas']] = aspiradora['valor_actual']
+                        aspiradora['cordenadas'][0] = aspiradora['cordenadas'][0] + lista_movimientos[movimiento][1]
+                        aspiradora['valor_actual'] = matriz[aspiradora['cordenadas']]
+                        print('Posición aspiradora: ',aspiradora['cordenadas'])
+                    else:
+                        print("Fuera del rango!")
 
             elif movimiento == 'l':
                 break
@@ -41,8 +54,6 @@ while True:
                 print('Movimiento no identificado')
 
             mostrar_info_matriz(matriz)
-            
-
 
     if input("salir (y/n): ") == 'y':
         break 
