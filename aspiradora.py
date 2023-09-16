@@ -2,7 +2,7 @@ import numpy as np
 
 def generar_matriz(columnas,filas):
 
-    return np.add(np.zeros((filas,columnas)),np.random.randint(0,2,(filas,columnas)))
+    return np.random.randint(0,2,(filas,columnas))
 
 def mostrar_info_matriz(matriz):
     num_elementos = np.size(matriz)
