@@ -11,7 +11,7 @@ def mostrar_info_matriz(matriz):
 
 while True:
     aspiradora = {'cordenadas': [0,0], 'valor_actual': 0} #[[0,0], 0]
-    lista_movimientos = {'w': ('columna',-1),'a': ('fila',-1),'s': ('columna',1),'d': ('fila',1)}
+    lista_movimientos = {'a': ('columna',-1),'w': ('fila',-1),'d': ('columna',1),'s': ('fila',1)}
 
     matriz = generar_matriz(int(input("columnas: ")),int(input("filas: ")))
 
@@ -25,26 +25,28 @@ while True:
                 matriz = np.zeros(dimenciones)
 
         while True:
-            print('Moverse con "wasd".\nSalir con "l')
+            print('Moverse con "wasd".\nSalir con "l"')
             movimiento = input()
 
             if movimiento in lista_movimientos:
                 if lista_movimientos[movimiento][0] == 'columna':
                     if aspiradora['cordenadas'][1] + lista_movimientos[movimiento][1] >= 0 and aspiradora['cordenadas'][1] + lista_movimientos[movimiento][1] < dimenciones[1]:
-                        matriz[aspiradora['cordenadas']] = aspiradora['valor_actual']
+                        matriz[aspiradora['cordenadas'][0]][aspiradora['cordenadas'][1]] = aspiradora['valor_actual']
                         aspiradora['cordenadas'][1] = aspiradora['cordenadas'][1] + lista_movimientos[movimiento][1]
-                        aspiradora['valor_actual'] = matriz[aspiradora['cordenadas']]
-                        print(aspiradora['cordenadas'])
+                        aspiradora['valor_actual'] = matriz[aspiradora['cordenadas'][0]][aspiradora['cordenadas'][1]]
+                        matriz[aspiradora['cordenadas'][0]][aspiradora['cordenadas'][1]] = 4
+                        print('Posición aspiradora: ',aspiradora['cordenadas'])
                     else:
                         print("Fuera del rango!")
             
             if movimiento in lista_movimientos:
                 if lista_movimientos[movimiento][0] == 'fila':
                     if aspiradora['cordenadas'][0] + lista_movimientos[movimiento][1] >= 0 and aspiradora['cordenadas'][0] + lista_movimientos[movimiento][1] < dimenciones[0]:
-                        matriz[aspiradora['cordenadas']] = aspiradora['valor_actual']
+                        matriz[aspiradora['cordenadas'][0]][aspiradora['cordenadas'][1]] = aspiradora['valor_actual']
                         aspiradora['cordenadas'][0] = aspiradora['cordenadas'][0] + lista_movimientos[movimiento][1]
-                        aspiradora['valor_actual'] = matriz[aspiradora['cordenadas']]
-                        print('Posición aspiradora: ',aspiradora['cordenadas'])
+                        aspiradora['valor_actual'] = matriz[aspiradora['cordenadas'][0]][aspiradora['cordenadas'][1]]
+                        matriz[aspiradora['cordenadas'][0]][aspiradora['cordenadas'][1]] = 4
+                        print('Posición aspiradora: ', aspiradora['cordenadas'])
                     else:
                         print("Fuera del rango!")
 
