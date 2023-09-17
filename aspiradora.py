@@ -4,10 +4,10 @@ def generar_matriz(columnas,filas):
 
     return np.random.randint(0,2,(filas,columnas))
 
-def mostrar_info_matriz(matriz):
+def mostrar_info_matriz(matriz,aux):
     num_elementos = np.size(matriz)
     print('------------------\n', matriz,'\n------------------')
-    print('porcentaje de suciedad: ',matriz.sum() / float(num_elementos) * 100, '%')
+    print('porcentaje de suciedad: ',aux.sum() / float(num_elementos) * 100, '%')
 
 while True:
     aspiradora = {'cordenadas': [0,0], 'valor_actual': 0} #[[0,0], 0]
@@ -18,12 +18,13 @@ while True:
     dimenciones = np.shape(matriz)
     aspiradora['valor_actual'] = matriz[0][0]
 
-    mostrar_info_matriz(matriz)
+    mostrar_info_matriz(matriz,matriz)
 
     if input("-------\nmoverse (y/n): ") == 'y':
         if input("Todo en ceros (y/n): ") == 'y':
-                matriz = np.zeros(dimenciones)
+            matriz = np.zeros(dimenciones)
 
+        aux = np.array(matriz)
         while True:
             print('Moverse con "wasd".\nSalir con "l"')
             movimiento = input()
@@ -55,7 +56,7 @@ while True:
             else:
                 print('Movimiento no identificado')
 
-            mostrar_info_matriz(matriz)
+            mostrar_info_matriz(matriz,aux)
 
     if input("salir (y/n): ") == 'y':
         break 
